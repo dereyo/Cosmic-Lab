@@ -1,0 +1,143 @@
+.cosmic-gateway-footer {
+  background: #000;
+  padding: 150px 5% 40px;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  border-top: 1px solid rgba(0, 247, 255, 0.1);
+}
+
+/* --- نظام النجوم الكثيفة --- */
+.infinite-star-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.stellar-dot {
+  position: absolute;
+  top: var(--top);
+  left: var(--left);
+  width: var(--size);
+  height: var(--size);
+  background: var(--color);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--color);
+  opacity: 0;
+  animation: starTwinkle var(--dur) infinite ease-in-out;
+  animation-delay: var(--delay);
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* --- أنيميشن الظهور (Reveal) --- */
+.footer-main-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.2fr;
+  gap: 60px;
+  max-width: 1300px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gateway-active .footer-main-layout {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- الهوية والشعار --- */
+.brand-logo { font-size: 38px; font-weight: 900; letter-spacing: 8px; margin-bottom: 25px; }
+.brand-logo span { 
+  color: #00f7ff; 
+  text-shadow: 0 0 20px #00f7ff, 0 0 40px rgba(168, 85, 247, 0.5); 
+}
+
+.mission-text { color: #94a3b8; line-height: 1.8; max-width: 400px; font-size: 14px; }
+
+.operator-info {
+  margin-top: 30px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #a855f7;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pulse-cyan {
+  width: 8px; height: 8px;
+  background: #00f7ff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00f7ff;
+  animation: pulseEffect 2s infinite;
+}
+
+@keyframes pulseEffect { 0% { opacity: 1; } 100% { opacity: 0; transform: scale(3); } }
+
+/* --- روابط التنقل --- */
+.node-title { font-size: 12px; color: #475569; letter-spacing: 4px; margin-bottom: 35px; }
+.nav-list { list-style: none; padding: 0; }
+.nav-list li { margin-bottom: 18px; }
+.nav-list a { 
+  color: #cbd5e1; 
+  text-decoration: none; 
+  font-size: 13px; 
+  transition: 0.3s;
+  letter-spacing: 2px;
+}
+.nav-list a:hover { color: #00f7ff; padding-left: 10px; text-shadow: 0 0 10px #00f7ff; }
+
+/* --- قنوات المبرمجين --- */
+.social-grid { display: flex; flex-direction: column; gap: 15px; }
+.channel-box {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+.channel-box:hover {
+  background: rgba(168, 85, 247, 0.1);
+  border-color: #a855f7;
+  transform: translateX(-10px);
+}
+
+.ch-icon { font-weight: 900; color: #00f7ff; font-size: 18px; }
+.ch-label { font-size: 11px; color: #fff; letter-spacing: 2px; }
+
+/* --- التذييل السفلي --- */
+.bottom-telemetry { margin-top: 100px; position: relative; }
+.scan-line {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, #00f7ff, #a855f7, transparent);
+  margin-bottom: 30px;
+}
+
+.telemetry-content {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #475569;
+  letter-spacing: 3px;
+}
+
+.highlight-name { color: #fff; font-weight: 900; text-shadow: 0 0 10px #fff; }
+
+@media (max-width: 1000px) {
+  .footer-main-layout { grid-template-columns: 1fr; gap: 60px; text-align: center; }
+  .social-grid { align-items: center; }
+  .operator-info { justify-content: center; }
+}

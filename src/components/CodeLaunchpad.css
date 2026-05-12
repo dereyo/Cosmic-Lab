@@ -1,0 +1,446 @@
+/* ══════════════════════════════════════════════
+   CodeLaunchpad.css
+   أضف في index.html:
+   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>
+   ══════════════════════════════════════════════ */
+
+/* ── Wrapper ── */
+.lp {
+  width: 96%;
+  background: #02020a;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 52px 40px 44px;
+}
+
+/* ── Background layers ── */
+.lp-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% -10%, rgba(99,102,241,0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 35% 50% at 5%  90%,  rgba(6,182,212,0.07)  0%, transparent 60%),
+    radial-gradient(ellipse 30% 40% at 95% 60%,  rgba(168,85,247,0.07) 0%, transparent 60%);
+}
+
+.lp-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.lp-beam {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  top: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.6), transparent);
+  animation: beamDown 6s ease-in-out infinite;
+}
+@keyframes beamDown {
+  0%   { top: 0;    opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: .4; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ── Header ── */
+.lp-head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 44px;
+}
+
+.head-left { flex: 1; }
+
+.lp-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  background: rgba(99,102,241,0.08);
+  border: 1px solid rgba(99,102,241,0.2);
+  color: #818cf8;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  font-family: 'Orbitron', sans-serif;
+  animation: fadeUp .7s ease both;
+}
+
+.ey-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #818cf8;
+  box-shadow: 0 0 7px #818cf8;
+  animation: dotBlink 1.5s ease-in-out infinite;
+}
+
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .2; }
+}
+
+.lp-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(22px, 3.2vw, 42px);
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: #f9fafb;
+  line-height: 1.05;
+  margin-bottom: 12px;
+  animation: fadeUp .7s .1s ease both;
+}
+.lp-title span {
+  background: linear-gradient(120deg, #6366f1, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lp-sub {
+  color: #4b5563;
+  font-size: 13px;
+  line-height: 1.7;
+  max-width: 480px;
+  animation: fadeUp .7s .2s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Progress Ring ── */
+.head-ring {
+  flex: 0 0 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeUp .7s .3s ease both;
+}
+
+.ring-svg { width: 80px; height: 80px; }
+
+.ring-track {
+  fill: none;
+  stroke: rgba(255,255,255,0.06);
+  stroke-width: 5;
+}
+
+.ring-fill {
+  fill: none;
+  stroke: url(#rg);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation: ringFill 1.5s .5s ease forwards;
+}
+@keyframes ringFill {
+  to { stroke-dashoffset: 22; }
+}
+
+.ring-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #4b5563;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ── Cards ── */
+.lp-cards {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.lp-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  cursor: default;
+  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+  animation: cardIn .7s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: calc(var(--i, 0) * 0.1s + 0.15s);
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.lp-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--ac);
+  box-shadow: 0 20px 40px rgba(0,0,0,.4), 0 0 30px color-mix(in srgb, var(--ac) 20%, transparent);
+}
+
+/* top accent line */
+.lp-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--ac);
+  box-shadow: 0 0 14px var(--ac);
+  animation: lineGlow 2.5s ease-in-out infinite;
+}
+@keyframes lineGlow {
+  0%, 100% { opacity: .5; }
+  50%       { opacity: 1; }
+}
+
+/* hover glow */
+.lp-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 0%, var(--ac) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity .4s;
+}
+.lp-card:hover::after { opacity: .07; }
+
+.lp-card-top {
+  padding: 20px 18px 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.lp-icon-box {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+.lp-icon-box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: radial-gradient(circle at 40% 30%, var(--ac), transparent 70%);
+  opacity: .15;
+}
+
+.lp-card-num {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.15);
+}
+
+.lp-card-body {
+  padding: 0 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.lp-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--ac);
+  font-family: 'Orbitron', sans-serif;
+  align-self: flex-start;
+}
+
+.lp-sdot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--ac);
+  box-shadow: 0 0 6px var(--ac);
+  animation: dotBlink 1.8s ease-in-out infinite;
+}
+
+.lp-card-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,.75);
+}
+
+.lp-card-text {
+  font-size: 11.5px;
+  color: #4b5563;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.lp-bar {
+  height: 2px;
+  background: rgba(255,255,255,.05);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.lp-bar-fill {
+  height: 100%;
+  width: var(--pct, 60%);
+  background: var(--ac);
+  border-radius: 2px;
+  animation: barIn 1.2s ease both;
+  animation-delay: calc(var(--i, 0) * 0.1s + 0.4s);
+}
+@keyframes barIn {
+  from { width: 0; }
+  to   { width: var(--pct, 60%); }
+}
+
+/* ── Live Ticker ── */
+.lp-ticker {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  border: 1px solid rgba(99,102,241,0.15);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.02);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  animation: fadeUp .7s .5s ease both;
+}
+.lp-ticker::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent);
+}
+
+.ticker-label {
+  flex-shrink: 0;
+  padding: 0 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #6366f1;
+  border-right: 1px solid rgba(99,102,241,0.2);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(99,102,241,0.05);
+}
+
+.ticker-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #6366f1;
+  box-shadow: 0 0 8px #6366f1;
+  animation: dotBlink 1.2s ease-in-out infinite;
+}
+
+.ticker-track {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.ticker-inner {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker 20s linear infinite;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 28px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #374151;
+  border-right: 1px solid rgba(255,255,255,0.04);
+  gap: 6px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .lp-cards { grid-template-columns: repeat(2, 1fr); }
+  .lp-head  { flex-direction: column; }
+  .head-ring { flex-direction: row; gap: 16px; }
+}
+@media (max-width: 540px) {
+  .lp-cards { grid-template-columns:0.9fr; }
+  .lp       { padding: 36px 20px 32px; }
+}
+@media (max-width: 768px) {
+  .lp-ticker {
+    height: 35px; /* تقليل ارتفاع الشريط قليلاً */
+  }
+
+  .ticker-label {
+    padding: 0 12px;
+    font-size: 10px; /* تصغير الخط للعنوان الثابت */
+    letter-spacing: 1px;
+  }
+
+  .ticker-dot {
+    width: 6px; 
+    height: 6px; /* تصغير النقطة الوامضة */
+  }
+
+  .ticker-item {
+    font-size: 11px; /* تصغير حجم الـ Items المتحركة */
+    padding-right: 30px; /* تقليل المسافة بين العناصر المتحركة */
+  }
+}
+
+/* للشاشات الصغيرة جداً (Small Phones) */
+@media (max-width: 480px) {
+  .ticker-label {
+    /* يمكنكِ إخفاء النص والاكتفاء بالأيقونة في الشاشات الضيقة جداً */
+    font-size: 9px;
+    padding: 0 8px;
+  }
+  
+  /* زيادة سرعة الأنميشن قليلاً في الموبايل ليعطي شعوراً بالحيوية */
+  .ticker-inner {
+    animation-duration: 20s; /* عدلي القيمة بناءً على سرعة الأنميشن الأصلي عندك */
+  }
+}

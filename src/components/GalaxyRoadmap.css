@@ -1,0 +1,161 @@
+.star-path-section {
+  background: radial-gradient(circle at center, #050510 0%, #000 100%);
+  padding: 120px 5%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* خلفية النجوم المتحركة */
+.star-background {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(white, rgba(255,255,255,0.2) 2px, transparent 40px);
+  background-size: 100px 100px;
+  opacity: 0.1;
+  animation: backgroundMove 100s linear infinite;
+}
+
+@keyframes backgroundMove {
+  from { background-position: 0 0; }
+  to { background-position: 1000px 1000px; }
+}
+
+.path-header {
+  text-align: center;
+  margin-bottom: 120px;
+}
+
+.path-main-title {
+  font-size: 4rem;
+  font-weight: 100;
+  color: #fff;
+  letter-spacing: 15px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* --- تصميم المسار النجمي --- */
+.star-path-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.star-node {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+  padding-bottom: 100px;
+}
+
+/* محاذاة تبادلية */
+.star-node:nth-child(even) { flex-direction: row-reverse; }
+
+/* شعاع الليزر الواصل بين النجوم */
+.connection-beam {
+  position: absolute;
+  top: 60px;
+  left: 30px;
+  width: 2px;
+  height: 0; /* يبدأ بصفر ويكبر مع الأنميشن */
+  background: linear-gradient(to bottom, #22d3ee, #a855f7);
+  box-shadow: 0 0 20px #22d3ee;
+  transition: height 1s ease-out;
+  transition-delay: 0.5s;
+}
+
+.star-node.ignite .connection-beam {
+  height: 100%;
+}
+
+/* النواة المضيئة */
+.core-star {
+  width: 60px;
+  height: 60px;
+  background: #000;
+  border: 2px solid #22d3ee;
+  border-radius: 50%;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+}
+
+.star-node.ignite .core-star {
+  background: #22d3ee;
+  box-shadow: 0 0 40px #22d3ee, 0 0 80px rgba(34, 211, 238, 0.4);
+}
+
+.star-inner-glow {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  animation: starPulse 2s infinite;
+}
+
+@keyframes starPulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* كارت البيانات النجمي */
+.node-data-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 2px; /* زوايا حادة لستايل تقني */
+  width: 350px;
+  opacity: 0;
+  transform: translateX(50px);
+  transition: 1s ease-out;
+  backdrop-filter: blur(10px);
+}
+
+.star-node.ignite .node-data-card {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.phase-label { color: #a855f7; font-size: 12px; font-weight: 900; letter-spacing: 3px; }
+.node-name { font-size: 28px; color: #fff; margin: 10px 0; font-weight: 200; }
+.node-task { color: #64748b; font-size: 14px; margin-bottom: 20px; }
+
+.data-bits {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 15px;
+  font-size: 10px;
+  color: #22d3ee;
+  letter-spacing: 2px;
+}
+/* --- الميديا كويري (Mobile & Tablets) --- */
+@media (max-width: 768px) {
+  .path-main-title {
+    font-size: 28px; /* تصغير الخط ليناسب عرض الموبايل */
+    letter-spacing: 5px; /* تقليل المسافات بين الحروف */
+  }
+
+  .scanner-line {
+    width: 120px; /* تقصير الخط ليظل متناسقاً مع العنوان الصغير */
+    margin: 10px auto;
+  }
+}
+
+/* للشاشات الصغيرة جداً (Small Phones) */
+@media (max-width: 480px) {
+  .path-main-title {
+    font-size: 22px;
+    letter-spacing: 3px;
+  }
+
+  .path-header {
+    margin-bottom: 30px;
+  }
+}
